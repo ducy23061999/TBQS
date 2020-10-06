@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "503449704295",
+    "firebase_url": "https://timbanqs.firebaseio.com",
+    "project_id": "timbanqs",
+    "storage_bucket": "timbanqs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503449704295:android:114181d4f070d8c01241c2",
+        "android_client_info": {
+          "package_name": "com.timbanqs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503449704295-18se6dipdo25qu0kedf2qgl55j2je937.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcP0MEapuyd3Sl6HZj4SRk9_maMgynIq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503449704295-18se6dipdo25qu0kedf2qgl55j2je937.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
