@@ -4,11 +4,18 @@ import Login from './Login'
 import SignUp from './SignUp'
 import Chat from './Chat'
 import Profile from './Profile'
+import Notifications from './Notification'
+import FriendDetail from './FriendDetail'
+import GroupDetail from './GroupDetail'
+
 export {
     Auth,
     Home,
     Login,
     SignUp,
     Chat,
-    Profile
+    Profile,
+    Notifications,
+    FriendDetail,
+    GroupDetail
 }

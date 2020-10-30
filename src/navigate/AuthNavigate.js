@@ -6,15 +6,16 @@ import {
     Login,
     SignUp
 } from '../screens'
+import {Screens} from '../comon/Constants'
 
 const Stack = createStackNavigator()
 const AuthNavigate = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName = "Auth">
-                <Stack.Screen name = "Auth" component = {Auth}/>
-                <Stack.Screen name = "Login" component = {Login}/>
-                <Stack.Screen name = "SignUp" component = {SignUp}/>
+            <Stack.Navigator initialRouteName = {Screens.Auth}>
+                <Stack.Screen name = {Screens.Auth} component = {Auth}/>
+                <Stack.Screen name = {Screens.Login} component = {Login}/>
+                <Stack.Screen name = {Screens.SignUp} component = {SignUp}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
