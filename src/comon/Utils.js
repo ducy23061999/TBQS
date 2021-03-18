@@ -7,7 +7,7 @@ export default class Utils {
     }
 
     static getHeith() {
-        return Dimensions.get('screen').width;
+        return Dimensions.get('screen').height;
     }
 
     static calcPercentWidth(percent) {

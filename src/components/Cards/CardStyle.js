@@ -112,5 +112,26 @@ export default StyleSheet.create({
     badgeForPerson: {
         right: -70, 
         // backgroundColor: colors.boldBlue2
-    }
+    },
+    inviteCardContain: {
+        width: 50
+    },
+    acceptButton: {
+        height: 50,
+        width: '100%',
+        ...layouts.rowCenterCenter,
+        backgroundColor: colors.primaryGreen,
+        borderTopLeftRadius: 8
+    },
+    functionInviteImage: {
+        color: colors.white,
+        fontSize: 20
+    },
+    denyButton: {
+        height: 50,
+        width: '100%',
+        ...layouts.rowCenterCenter,
+        backgroundColor: colors.red,
+        borderBottomLeftRadius: 8
+    },
 })

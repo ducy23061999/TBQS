@@ -7,6 +7,10 @@ import Profile from './Profile'
 import Notifications from './Notification'
 import FriendDetail from './FriendDetail'
 import GroupDetail from './GroupDetail'
+import Manage from './Manage'
+import YourGroup from './YourGroup'
+import Splash from './Splash'
+import Intro from './Intro'
 
 export {
     Auth,
@@ -17,5 +21,9 @@ export {
     Profile,
     Notifications,
     FriendDetail,
-    GroupDetail
+    GroupDetail,
+    Manage,
+    YourGroup,
+    Splash,
+    Intro
 }

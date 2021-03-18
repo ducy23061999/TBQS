@@ -11,6 +11,24 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
     },
+    rowSpaceCenter: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    rowSpaceBCenter: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    rowSpaceBStart: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
     rowStartCenter: {
         display: 'flex',
         flexDirection: 'row',
@@ -32,5 +50,23 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-end'
+    },
+    columnStartCenter: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    columnCenterCenter: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    columnSpaceStart: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start'
     }
 })

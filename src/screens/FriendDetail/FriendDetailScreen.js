@@ -14,9 +14,11 @@ import { SharedElement } from 'react-navigation-shared-element';
 import styles from './FriendDetailStyle'
 import {
     CarouselSlide,
-    BlurImage
+    BlurImage,
+    BackFloatButton
 } from '../../components'
 import FriendCarouselItem from './FriendCarouselItem'
+import BottomGroupButton from './BottomGroupButton'
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const SLIDER_HEIGHT = Dimensions.get('window').height;
@@ -28,6 +30,13 @@ export class FriendDetailScreen extends Component {
         super(props);
         this.state = {
             needUpdateBlur: false
+        }
+    }
+
+    navigate = {
+        instance: this.props.navigation,
+        back: () => {
+            this.props.navigation.goBack()
         }
     }
 
@@ -64,6 +73,7 @@ export class FriendDetailScreen extends Component {
             clearTimeout(times);
         }, 500)
     }
+
     componentWillUnmount() {
         this.setState({
             needUpdateBlur: false
@@ -77,6 +87,7 @@ export class FriendDetailScreen extends Component {
                 <StatusBar translucent backgroundColor="transparent" />
                 {/* {needUpdateBlur && <BlurImage uri = {1}/> } */}
                 <View style = {{flex: 1}}>
+                    <BackFloatButton {...this.props}/>
                     <CarouselSlide 
                         data = {[1, 2, 3, 4, 5]}
                         renderItem = {this.renderCarouselItem}
@@ -84,6 +95,7 @@ export class FriendDetailScreen extends Component {
                         sliderWidth = {SLIDER_WIDTH}
                         itemHeight = {ITEM_HEIGHT}
                     />
+                    <BottomGroupButton />
                 </View>
             </>
         )

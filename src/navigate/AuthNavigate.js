@@ -11,13 +11,21 @@ import {Screens} from '../comon/Constants'
 const Stack = createStackNavigator()
 const AuthNavigate = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName = {Screens.Auth}>
-                <Stack.Screen name = {Screens.Auth} component = {Auth}/>
-                <Stack.Screen name = {Screens.Login} component = {Login}/>
-                <Stack.Screen name = {Screens.SignUp} component = {SignUp}/>
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator 
+            initialRouteName = {Screens.Login}
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen 
+                name = {Screens.Login} 
+                component = {Login}
+                
+                options={{
+                    tabBarVisible: false,
+                }}/>
+            <Stack.Screen name = {Screens.SignUp} component = {SignUp}/>
+        </Stack.Navigator>
     )
 }
 

@@ -3,19 +3,25 @@ import {
     View,
     Text,
     Image,
+    TouchableOpacity
 } from 'react-native'
 import {
     Body,
     Card,
-    CardItem
+    CardItem,
+    Button
 } from 'native-base'
 
 import styles from './CoverImageInfoStyle'
 import images from '../../images'
+import Ionicons from 'react-native-vector-icons/FontAwesome5';
 
-export default function({title, desc, image}) {
+export default function({title, desc, image, onClickUpLoad}) {
     return (
         <View style = {styles.container}>
+             { onClickUpLoad &&
+                 <UploadImageView callback = {onClickUpLoad}/>
+            }
             <Image 
                 source = {images.thumnail} 
                 resizeMode = 'cover'
@@ -36,5 +42,15 @@ export default function({title, desc, image}) {
                 </Text>
             </View>
         </View>
+    )
+}
+
+export const UploadImageView = ({callback}) => {
+    return (
+        <TouchableOpacity 
+            onPress = {callback}
+            style={styles.uploadView}>
+            <Ionicons name='images' size={30} style = {styles.photoIcon}/>
+        </TouchableOpacity>
     )
 }

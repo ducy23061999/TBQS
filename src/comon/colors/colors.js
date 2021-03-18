@@ -6,6 +6,8 @@ module.exports = {
     black: '#131313',
     lighGrey: '#848484',
     lightRed: '#FF0000',
+    greyTransparent: 'rgba(214, 214, 214, 0.7)',
+    red: '#e74c3c',
     lightOrange1: '#FFB382',
     lightOrange2: '#FFD387',
     orange: '#FF4D00',
@@ -24,5 +26,6 @@ module.exports = {
     boldPink: '#EB6A9F',
     pink: '#FF00D6',
     primaryGreen: '#1ca75d',
+    yellow: '#f1c40f'
 
 }

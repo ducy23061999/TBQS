@@ -8,7 +8,9 @@ import {
     Profile,
     Notifications,
     FriendDetail,
-    GroupDetail
+    GroupDetail,
+    Manage,
+    YourGroup
 } from '../screens'
 import {Screens} from '../comon/Constants'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
@@ -42,21 +44,54 @@ const HomeStack = () => {
         </ShareStack.Navigator>
     )
 }
+
+const ManageStack = () => {
+    return (
+       <Stack.Navigator 
+            headerMode = 'none'
+            initialRouteName = {Screens.Manage}
+        >
+           <Stack.Screen name = {Screens.Manage} component = {Manage}/>
+           <Stack.Screen name = {Screens.YourGroup} component = {YourGroup}/>
+       </Stack.Navigator>
+
+    )
+}
+
+const InteractionStack = () => {
+    return (
+        <Stack.Navigator
+            headerMode = 'none'
+            initialRouteName = {Screens.Notifications}
+        >
+            <Stack.Screen name = {Screens.Notifications} component = {Notifications}/>
+            <Stack.Screen
+                name = {Screens.Chat}
+                component = {Chat}
+                options={{
+                    tabBarVisible: false,
+                }}
+                />
+        </Stack.Navigator>
+
+    )
+}
+
 const MainNavigate = () => {
    return (
-    <NavigationContainer>
         <Tab.Navigator
             screenOptions = {screenOptions}
             tabBarOptions = {tabBarColors}
+            initialRouteName = {Screens.HomeStack}
         >
             <Tab.Screen name = {Screens.HomeStack} component = {HomeStack}/>
-            <Tab.Screen name = {Screens.Chat} component = {Chat}/>
-            <Tab.Screen name = {Screens.Notifications} component = {Notifications}/>
+            <Tab.Screen name = {Screens.ManageStack} component = {ManageStack}/>
+            <Tab.Screen name = {Screens.NotificationStack} component = {InteractionStack}/>
             <Tab.Screen name = {Screens.Profile} component = {Profile}/>
         </Tab.Navigator>
-    </NavigationContainer>
    )
 }
+
 
 const screenOptions = ({route}) => ({
     tabBarIcon: ({ focused, color, size }) => {
@@ -66,10 +101,10 @@ const screenOptions = ({route}) => ({
             case Screens.HomeStack: 
                 iconName = focused ? 'home': 'home';
                 break;
-            case Screens.Chat: 
-                iconName = focused ? 'comment-dots': 'comment-dots'
+            case Screens.ManageStack: 
+                iconName = focused ? 'puzzle-piece': 'puzzle-piece'
                 break;
-            case Screens.Notifications: 
+            case Screens.NotificationStack: 
                 iconName = focused ? 'bell' : 'bell';
                 break;
             default: 
