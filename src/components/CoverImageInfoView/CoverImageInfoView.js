@@ -23,7 +23,7 @@ export default function({title, desc, image, onClickUpLoad}) {
                  <UploadImageView callback = {onClickUpLoad}/>
             }
             <Image 
-                source = {images.thumnail} 
+                source = {image} 
                 resizeMode = 'cover'
                 style = {styles.coverImage}
             />

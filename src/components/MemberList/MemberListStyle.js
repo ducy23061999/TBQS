@@ -5,7 +5,7 @@ import colors from '../../comon/colors/colors'
 export default StyleSheet.create({
     container: {
         ...layouts.rowStartCenter,
-        flexWrap: 'wrap'
+        // flexWrap: 'wrap'
     },
     memberContainer: {
         width: 20,

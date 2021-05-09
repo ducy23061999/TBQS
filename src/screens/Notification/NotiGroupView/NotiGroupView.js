@@ -31,7 +31,7 @@ export default function({onPressItem}) {
     return (
         <View>
             <FlatList 
-                data = {[1,2]}
+                data = {[1]}
                 key = {index => `${index}`}
                 renderItem = {renderItem}
             />

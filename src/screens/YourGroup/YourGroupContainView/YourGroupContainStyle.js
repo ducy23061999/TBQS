@@ -43,7 +43,7 @@ export default StyleSheet.create({
     },
     buttonFavor: {
         width: '100%',
-        backgroundColor: colors.white,
+        backgroundColor: colors.greyTransparent,
         elevation: 0,
         shadowOffset: { height: 0, width: 0 },
         shadowOpacity: 0,

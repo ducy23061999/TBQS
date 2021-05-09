@@ -15,6 +15,8 @@ import BackFloatButton from './BackFloatButton'
 import StepIndicatorView from './StepIndicatorView'
 import WrapTextInput from './WrapTextInput'
 import WrapOptionPicker from './WrapOptionPicker'
+import {AddFavoriteModal} from './Modals';
+import AutoCompleteInput from './InputAutocomplete'
 
 export {
     Tabs,
@@ -39,5 +41,7 @@ export {
     BackFloatButton,
     StepIndicatorView,
     WrapTextInput,
-    WrapOptionPicker
+    WrapOptionPicker,
+    AddFavoriteModal,
+    AutoCompleteInput
 }

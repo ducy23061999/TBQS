@@ -12,11 +12,14 @@ import images  from '../../images'
 import { SharedElement } from 'react-navigation-shared-element';
 import {MemberHoriList} from '../MemberList'
 import VerifyMemberView from '../VerifyMemberView'
+import {useSelector} from 'react-redux'
 
 export default function GroupCard({item, onPress}) {
     const wrapOnpress = () => {
       onPress(item)
     }
+    
+    const {owner, members, created_at} = item;
 
     return (
       <TouchableOpacity 
@@ -25,7 +28,12 @@ export default function GroupCard({item, onPress}) {
         onPress = {wrapOnpress}
         >
         <Card style = {{overflow: 'hidden'}}>
-            <GroupAuthorView />
+            <GroupAuthorView 
+                user = {owner}
+                totalMember = {members ? members.length : 0}
+                verifyMember = {1}
+
+            />
             <ClaimAuthorView />
             <SharedElement id={`group_item.${item}.photo`} style = {{width: '100%'}}>
                 <Image 
@@ -35,17 +43,19 @@ export default function GroupCard({item, onPress}) {
                     resizeMethod = 'scale'
                 />   
             </SharedElement>
-            <Badge member = "7"/> 
+            <Badge member = {members.length || 0}/> 
            <CardItem>
                 <Body>
                     <View style = {styles.memberContainer}>
                         <View style = {styles.ownerGroup}>
                             <Text style = {styles.groupBoldText}>Ngày tạo</Text>
-                            <Text style = {styles.descText}>30/10/2020</Text>
+                            <Text style = {styles.descText}>{created_at || ""}</Text>
                         </View>
                         <View style = {styles.listMember}>
                             <Text style = {styles.groupBoldText}>Thành viên</Text>
-                            <MemberHoriList />
+                            <MemberHoriList 
+                                data = {members || []}
+                            />
                         </View>
                     </View>
                 </Body>
@@ -63,20 +73,22 @@ export const Badge = ({member}) => {
     )
 }
 
-export const GroupAuthorView = ({}) => {
+export const GroupAuthorView = ({user, totalMember, verifyMember}) => {
+    const userData = useSelector(state => state.userReducer)
+    const fbAvt = `https://graph.facebook.com/${user.id}/picture?type=large&access_token=${userData.access_token}`;
     return (
         <View style = {styles.groupAuthor}>
             <Image 
-                source = {images.thumnail}
+                source = {{uri: fbAvt}}
                 style = {styles.avataImage}
                 resizeMode = 'cover'
                 resizeMethod = 'scale'
             />
             <View style = {styles.rightAuthorContain}>
-                <Text style = {styles.nameAuthor}>Trần Đức Ý</Text>
+                <Text style = {styles.nameAuthor}>{user.first_name + ' ' + user.last_name}</Text>
                 <VerifyMemberView 
-                    total = {7}
-                    verified = {4}
+                    total = {totalMember}
+                    verified = {verifyMember}
                 />
             </View>
         </View>
@@ -86,7 +98,7 @@ export const GroupAuthorView = ({}) => {
 export const ClaimAuthorView = ({}) => {
     return (
         <View style = {styles.claimContain}>
-            <Text style = {styles.clainText}>Mọi việc trong đời đều ít quan trọng khi bạn mắc ỉa</Text>
+            <Text style = {styles.clainText}>Hãy tham gia nhóm của chúng mình nhé</Text>
         </View>
     )
 }

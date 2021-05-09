@@ -3,12 +3,27 @@ import {
     View,
     Text,
 } from 'react-native'
+import { connect } from 'react-redux'
 import {GroupList} from '../../../components'
+import {getSuggestGroup} from '../../../store/actions'
 
-export default function({onPress}) {
+
+export function GroupView({onPress, groupData}) {
+    console.log(groupData)
     return (
         <View style = {{flex: 1}}>
-            <GroupList onPress = {onPress}/>
+            <GroupList
+                data = {groupData}
+                onPress = {onPress}
+             />
         </View>
     )
 }
+const mapStateToProps = (state) => ({
+    groupData: state.groupReducer
+})
+
+const mapActionToDispatch = (dispatch) => ({
+    
+})
+export default connect(mapStateToProps, mapActionToDispatch)(GroupView)

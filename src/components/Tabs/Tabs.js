@@ -25,20 +25,20 @@ export default function({PersonView, GroupView, MergeGroupView}) {
             tabBarBackgroundColor = {colors.lightPink}
         >
             <Tab
-                heading = {<TabHeading style = {styles.headingBackground}><DefaultTab text =  "Cá Nhân"/></TabHeading>}
+                heading = {<TabHeading style = {styles.headingBackground}><DefaultTab text =  "Lời mời"/></TabHeading>}
             >
-            <PersonView/>
+                <PersonView/>
             </Tab>
             <Tab 
-                heading={<TabHeading style = {styles.headingBackground}><DefaultTab text =  "Nhóm"/></TabHeading>}
+                heading={<TabHeading style = {styles.headingBackground}><DefaultTab text =  "Yêu cầu nhóm"/></TabHeading>}
             >
                 <GroupView/>
             </Tab>
-            <Tab 
+            {/* <Tab 
                 heading={<TabHeading style = {styles.headingBackground}><DefaultTab text =  "Ghép Nhóm"/></TabHeading>}
             >
                 <MergeGroupView/>
-            </Tab>
+            </Tab> */}
 
         </Tabs>
     )

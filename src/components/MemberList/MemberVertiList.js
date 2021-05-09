@@ -7,9 +7,15 @@ export default function({data, onPressItem}) {
     return (
         <View>
             <FlatList 
-                data = {[1, 2, 3, 4, 5]}
+                data = {data}
                 numColumns = {1}
-                renderItem = {() => (<MemberCard />)}
+                renderItem = {({item}) => (
+                    <MemberCard 
+                        name = {item.first_name + ' '+ item.last_name}
+                        status = {false}
+                        uri = {`https://graph.facebook.com/${item.id}/picture?type=large`}
+                    />
+                )}
             />       
         </View>
     )

@@ -10,8 +10,17 @@ import {
     Picker,
     Icon
 } from 'native-base'
+import { Value } from 'react-native-reanimated'
 
-export default function({field, placeholder, callBackValueChange, require, style, data}) {
+/*
+    data = [
+        {
+            label,
+            value
+        }
+    ]
+*/
+export default function({field, placeholder, callBackValueChange, require, style, data = []}) {
     const [selectedValue, setIndex] = useState(0)
     return (
         <View {...style}>
@@ -27,14 +36,10 @@ export default function({field, placeholder, callBackValueChange, require, style
                     selectedValue={selectedValue}
                     onValueChange={(value) => {
                         setIndex(value);
-                        callBackValueChange && onValueChange(value);
+                        callBackValueChange && callBackValueChange(value);
                     }}
                 >
-                    <Picker.Item label="2000" value="key0" />
-                    <Picker.Item label="1999" value="key1" />
-                    <Picker.Item label="1998" value="key2" />
-                    <Picker.Item label="1997" value="key3" />
-                    <Picker.Item label="1996" value="key4" />
+                    {data.map(item => <Picker.Item label={item.label} value={item.value}/>)}
                 </Picker>
              </Item>
         </View>

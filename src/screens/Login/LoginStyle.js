@@ -30,7 +30,7 @@ export default StyleSheet.create({
         paddingBottom: 16,
         ...layouts.rowSpaceBCenter,
         height: 60,
-        borderRadius: 10
+        borderRadius: 10,
     }, 
 
     buttonText: {

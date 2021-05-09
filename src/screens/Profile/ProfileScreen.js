@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
     View,
+    SafeAreaView
 } from 'react-native'
 import {
     Body,
@@ -21,6 +22,7 @@ export class ProfileScreen extends Component {
 
     render() {
        return (
+        <SafeAreaView>
         <View style = {styles.container}>
                <Container style = {{borderRadius: 10, width: '100%'}}>
                     <View style = {styles.center}>                        
@@ -99,6 +101,7 @@ export class ProfileScreen extends Component {
                
                </Container>
         </View>
+        </SafeAreaView>
        )
     }
 }

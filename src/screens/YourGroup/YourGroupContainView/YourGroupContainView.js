@@ -21,18 +21,21 @@ import {CoverView, Tags, ViewMoreText, EditableMemberList} from '../../../compon
 import MapView from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/FontAwesome5';
 import colors from '../../../comon/colors/colors';
+import {useSelector} from 'react-redux'
 
-export default function({style, item, onClickUpLoad}) {
+export default function({style, item, onClickUpLoad, onDeleteMember}) {
+    console.log(item);
+
     return (
         <View style = {[styles.container, style]}>
             <ScrollView>
                 <CoverView onClickUpLoad = {onClickUpLoad}/>
                 <View style = {styles.borderTopView}>
                     <View style = {styles.content}>
-                        <AgeView/>
-                        <DescriptView longText = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source'/>
-                        <TagsView tags = {[]} onPressAdd = {() => {}}/>
-                        <ListMemberView />
+                        <AgeView memberCount = {item.members.length}/>
+                        <DescriptView longText = {item.description}/>
+                        {/* <TagsView tags = {[]} onPressAdd = {() => {}}/> */}
+                        <ListMemberView members = {item.members} onDeleted = {onDeleteMember}/>
                         <AdvanceView />
                         <View style = {{width: '100%', height: 90}}/>
                     </View>
@@ -42,11 +45,11 @@ export default function({style, item, onClickUpLoad}) {
     )
 }
 
-export const AgeView = () => {
+export const AgeView = ({memberCount}) => {
     return (
         <View style = {[styles.ageContent]}>
             <Text style = {styles.keyAgeText}>Số lượng thành viên:</Text>
-            <Text style = {styles.valueAgeText}>21</Text>
+            <Text style = {styles.valueAgeText}>{memberCount}</Text>
         </View>
     )
 }
@@ -85,11 +88,13 @@ export const DescriptView = ({longText}) => {
     )
 }
 
-export const ListMemberView = ({}) => {
+export const ListMemberView = ({members, onDeleted}) => {
+    console.log("BUGG");
+    console.log(members);
     return (
         <View style = {[styles.lineSeparate, {marginTop: 10}]}>
             <Text style = {styles.descriptionText}>Thành viên</Text>
-            <EditableMemberList />
+            <EditableMemberList data = {members} onPressDeleted = {onDeleted}/>
         </View>
     )
 }

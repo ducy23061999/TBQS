@@ -56,7 +56,7 @@ export class GroupDetailScreen extends Component {
     renderImage = () => {
         const { item } = this.props.route.params;
         return (
-            <SharedElement id={`friend_item.${item}.photo`}>
+            <SharedElement id={`friend_item.${item.id}.photo`}>
                 <Image 
                     source = {images.thumnail}
                     style = {{width: '100%', height: 350}}
@@ -82,7 +82,10 @@ export class GroupDetailScreen extends Component {
     }
 
     render() {
-        const {needUpdateBlur} = this.state
+        const {needUpdateBlur} = this.state;
+        const {groupData} = this.props;
+        const {activeGroupIndex} = this.props.route.params;
+
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -90,11 +93,12 @@ export class GroupDetailScreen extends Component {
                 <View style = {{flex: 1}}>
                     <BackFloatButton {...this.props}/>
                     <CarouselSlide 
-                        data = {[1, 2, 3, 4, 5]}
+                        data = {groupData}
                         renderItem = {this.renderCarouselItem}
                         itemWidth = {ITEM_WIDTH}
                         sliderWidth = {SLIDER_WIDTH}
                         itemHeight = {ITEM_HEIGHT}
+                        activeIndex = {activeGroupIndex}
                     />
                     <BottomGroupButton />
                 </View>
@@ -102,4 +106,12 @@ export class GroupDetailScreen extends Component {
         )
     }
 }
-export default connect()(GroupDetailScreen)
+
+const mapStateToProps = (state) => ({
+    groupData: state.groupReducer
+})
+
+const mapActionToDispatch = (dispatch) => ({
+    
+})
+export default connect(mapStateToProps, mapActionToDispatch)(GroupDetailScreen)

@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {Screens} from '../../comon/Constants'
-
+import {fetchMajorList} from '../../store/actions'
 export class SplashScreen extends Component {
 
     constructor(props) {
@@ -13,14 +13,21 @@ export class SplashScreen extends Component {
     }
 
     componentDidMount() {
+        this.props.fetchMajorList()
         this.fakeSplash = setTimeout(() => {
-            this.props.navigation.replace(Screens.Intro)
+            if (this.props.userData) {
+                this.props.navigation.replace(Screens.MainNavigate)
+            } else {
+                this.props.navigation.replace(Screens.Intro)
+            }
+            
         }, 3000)
     }
 
     componentWillUnmount() {
        clearTimeout(this.fakeSplash) 
     }
+
     render() {
        return (
         <View>
@@ -29,4 +36,12 @@ export class SplashScreen extends Component {
        )
     }
 }
-export default connect()(SplashScreen)
+
+const mapStateToProps = (state) => ({
+    userData: state.userReducer
+})
+
+const mapActionToDispatch = (dispatch) => ({
+    fetchMajorList: () => dispatch(fetchMajorList())
+})
+export default connect(mapStateToProps, mapActionToDispatch)(SplashScreen)

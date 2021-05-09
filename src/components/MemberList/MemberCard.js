@@ -22,13 +22,13 @@ export default function({name, uri, status}) {
                 <Body style = {styles.cardContain}>
                   <View style = {styles.leftContain}>
                         <Image 
-                            uri = {images.thumnail}
+                            uri = {{uri}}
                             style = {styles.image}
                             resizeMode = {FastImage.resizeMode.cover}
                         />
                   </View>
                   <View style = {styles.rightContain}>
-                        <Text style = {styles.nameText}>Hello</Text>
+                        <Text style = {styles.nameText}>{name}</Text>
                         <Badge>
                             <Text style = {styles.badgeText}>chưa xác minh</Text>
                         </Badge>

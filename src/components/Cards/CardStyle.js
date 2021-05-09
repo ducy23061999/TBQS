@@ -134,4 +134,40 @@ export default StyleSheet.create({
         backgroundColor: colors.red,
         borderBottomLeftRadius: 8
     },
+    checkbox: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 3,
+        width: '13%',
+        height: '11.5%',
+        margin: 0,
+        borderRadius: 3,
+        flex: 1
+    },
+    containCard: {
+        ...layouts.row,
+        
+    },
+    nameText: {
+        color: '#00F',
+        fontFamily: fonts.PoppinsMedium,
+        fontSize: 16
+    },
+
+    inviteContainText: {
+        color: '#000',
+        fontSize: 16,
+        width:'90%'
+    },
+    rightChatContain: {
+       display: 'flex',
+       flexDirection: 'row',
+       justifyContent: 'flex-end',
+       marginRight: '10%'
+    },
+    chatActionText: {
+        fontSize: 18,
+        color: colors.boldViolet
+    }
 })

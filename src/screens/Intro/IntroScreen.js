@@ -9,6 +9,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './IntroStyle'
 import images from '../../images'
+import { Screens } from '../../comon/Constants';
 
 export const data = [
     {
@@ -31,17 +32,43 @@ export const data = [
     },
 ];
   
+
 export class IntroScreen extends Component {
     
     constructor(props) {
         super(props)
         this.state = {
-            showRealApp: false
+            showRealApp: false,
+            data: [
+              {
+                image: images.fiend,
+                title: "Tìm bạn",
+                description: "Tìm những người bạn hợp gu với mình",
+                bg: "#0984e3"
+              },
+              {
+                image: images.friendship,
+                title: "Lập nhóm",
+                description: "Tụ tập đàn đúm với chức năng lập nhóm",
+                bg: "#81ecec"
+              },
+              {
+                image: images.crowd,
+                title: "Ghép nhóm",
+                description: "Ghép các nhóm thành một tiểu đội",
+                bg: "#fab1a0"
+              }
+            ]
         }
     }
+
+    onPressDone = () => {
+      this.props.navigation.replace(Screens.AuthNavigate)
+    }
+
     _keyExtractor = (item) => item.title;
 
-    _renderItem = ({item}) => {
+    _renderItem = ({item, index}) => {
         return (
           <View
             style={[
@@ -52,7 +79,7 @@ export class IntroScreen extends Component {
             ]}>
             <Text style={styles.title}>{item.title}</Text>
             <Image source={item.image} style={styles.image} />
-            <Text style={styles.text}>{item.text}</Text>
+            <Text style={styles.text}>{item.description}</Text>
           </View>
         )
     }
@@ -75,6 +102,7 @@ export class IntroScreen extends Component {
         );
     };
     
+    
 
     render() {
        return (
@@ -83,8 +111,9 @@ export class IntroScreen extends Component {
                 keyExtractor={this._keyExtractor}
                 // renderDoneButton={this._renderDoneButton}
                 // renderNextButton={this._renderNextButton}
+                onDone = {this.onPressDone}
                 renderItem={this._renderItem}
-                data={data}
+                data={this.state.data}
             />
         </View>
        )

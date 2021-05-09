@@ -17,22 +17,22 @@ import colors from '../../comon/colors/colors'
 import fonts from '../../comon/fonts/fonts'
 import Ionicons from 'react-native-vector-icons/FontAwesome5';
 
-export default function({name, uri, status, onPressDeleted}) {
+export default function({name, status, onPressDeleted, image}) {
     return (
         <Card>
             <CardItem>
                 <Body style = {styles.cardContain}>
                   <View style = {styles.leftContain}>
                         <Image 
-                            uri = {images.thumnail}
+                            uri = {{uri: image}}
                             style = {styles.image}
                             resizeMode = {FastImage.resizeMode.cover}
                         />
                   </View>
                   <View style = {styles.rightContain}>
-                        <Text style = {styles.nameText}>Hello</Text>
+                        <Text style = {styles.nameText}>{name}</Text>
                         <Badge>
-                            <Text style = {styles.badgeText}>chưa xác minh</Text>
+                            <Text style = {styles.badgeText}>Xác minh</Text>
                         </Badge>
                        
                   </View>
@@ -48,7 +48,7 @@ export default function({name, uri, status, onPressDeleted}) {
                 </Button>
             }
         </Card>
-    )
+    )   
 }
 
 export const styles = StyleSheet.create({

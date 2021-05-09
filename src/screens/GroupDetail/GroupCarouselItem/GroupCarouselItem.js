@@ -16,18 +16,26 @@ import { SharedElement } from 'react-navigation-shared-element';
 import images from '../../../images'
 import {CoverView, Tags, ViewMoreText, MemberVertiList} from '../../../components'
 import MapView from 'react-native-maps';
+import {useSelector} from 'react-redux'
 
 export default function({style, item}) {
+    const userData = useSelector(state => state.userReducer)
+    const fbAvt = `https://graph.facebook.com/${100006281083345}/picture?type=large&access_token=${userData.access_token}`;
+
     return (
         <Card style = {[styles.container, style]}>
             <ScrollView>
-                <CoverView />
+                <CoverView image = {{uri: fbAvt}}/>
                 <View style = {styles.borderTopView}>
                     <View style = {styles.content}>
-                        <AgeView/>
-                        <DescriptView longText = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source'/>
-                        <TagsView/>
-                        <ListMemberView />
+                        <AgeView
+                            amountMember = {item.members.length}
+                        />
+                        <DescriptView 
+                            longText = {item.description}
+                        />
+                        <TagsView />
+                        <ListMemberView data = {item.members}/>
                     </View>
                 </View>
             </ScrollView>
@@ -35,19 +43,33 @@ export default function({style, item}) {
     )
 }
 
-export const AgeView = () => {
+export const AgeView = ({amountMember}) => {
     return (
         <View style = {[styles.ageContent]}>
             <Text style = {styles.keyAgeText}>Số lượng thành viên:</Text>
-            <Text style = {styles.valueAgeText}>21</Text>
+            <Text style = {styles.valueAgeText}>{amountMember}</Text>
         </View>
     )
 }
-export const TagsView = () => {
+export const TagsView = (tags) => {
+    const data = [
+        {
+            id: 1,
+            name: 'Mèo'
+        },
+        {
+            id: 2,
+            name: 'Đá bóng'
+        },
+        {
+            id: 2,
+            name: 'Chơi game'
+        }
+    ]
     return (
         <View style = {[styles.lineSeparate, {marginTop: 10}]}>
             <Text style = {styles.descriptionText}>Sở thích</Text>
-            <Tags />
+            <Tags data = {data}/>
         </View>
     )
 }
@@ -63,11 +85,11 @@ export const DescriptView = ({longText}) => {
     )
 }
 
-export const ListMemberView = ({}) => {
+export const ListMemberView = ({data}) => {
     return (
         <View style = {[styles.lineSeparate, {marginTop: 10}]}>
             <Text style = {styles.descriptionText}>Thành viên</Text>
-            <MemberVertiList />
+            <MemberVertiList data = {data}/>
         </View>
     )
 }

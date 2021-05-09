@@ -28,10 +28,12 @@ const ITEM_HEIGHT = Math.round(SLIDER_HEIGHT * 0.9);
 export class FriendDetailScreen extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            needUpdateBlur: false
+            needUpdateBlur: false,
         }
     }
+
 
     navigate = {
         instance: this.props.navigation,
@@ -42,14 +44,17 @@ export class FriendDetailScreen extends Component {
 
     renderCarouselItem = ({item}) => {
         return (
-            <FriendCarouselItem 
-                style = {{
-                    width: ITEM_WIDTH,
-                    height: ITEM_HEIGHT,
-                    marginTop: 40,
-                }}
-                item = {item}
-            />
+            <View>
+                <FriendCarouselItem 
+                    key = {`carousel_item_${item.id}`}
+                    style = {{
+                        width: ITEM_WIDTH,
+                        height: ITEM_HEIGHT,
+                        marginTop: 40,
+                    }}
+                    item = {item}
+                />
+            </View>
         )
     }
     renderImage = () => {
@@ -66,12 +71,13 @@ export class FriendDetailScreen extends Component {
         )
     }
     componentDidMount() {
-        const times = setTimeout(() => {
-            this.setState({
-                needUpdateBlur: true
-            });
-            clearTimeout(times);
-        }, 500)
+        // const times = setTimeout(() => {
+        //     this.setState({
+        //         needUpdateBlur: true
+        //     });
+        //     clearTimeout(times);
+        // }, 500)
+       
     }
 
     componentWillUnmount() {
@@ -81,7 +87,10 @@ export class FriendDetailScreen extends Component {
     }
 
     render() {
-        const {needUpdateBlur} = this.state
+        const {needUpdateBlur, initIndex} = this.state;
+        const {suggestFriends} = this.props;
+        const {activeIndex} = this.props.route.params;
+        const friendListSuggest = [...suggestFriends.favorite, ...suggestFriends.location];
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -89,11 +98,13 @@ export class FriendDetailScreen extends Component {
                 <View style = {{flex: 1}}>
                     <BackFloatButton {...this.props}/>
                     <CarouselSlide 
-                        data = {[1, 2, 3, 4, 5]}
+                        data = {friendListSuggest}
                         renderItem = {this.renderCarouselItem}
                         itemWidth = {ITEM_WIDTH}
                         sliderWidth = {SLIDER_WIDTH}
                         itemHeight = {ITEM_HEIGHT}
+                        activeIndex = {activeIndex}
+                        
                     />
                     <BottomGroupButton />
                 </View>
@@ -102,4 +113,13 @@ export class FriendDetailScreen extends Component {
     }
 }
 
-export default connect()(FriendDetailScreen)
+const mapStateToProps = (state) => ({
+    userData: state.userReducer,
+    suggestFriends: state.friendReducer
+})
+
+const mapActionToDispatch = (dispatch) => ({
+    
+})
+
+export default connect(mapStateToProps, mapActionToDispatch)(FriendDetailScreen)

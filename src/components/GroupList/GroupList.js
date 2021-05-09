@@ -28,7 +28,8 @@ export default class GroupList extends Component {
         return (
             <View style = {{flex: 1}}>
                 <FlatList 
-                    data = {[1, 2, 3, 4, 5]}
+                    keyExtractor = {item => `group_${item.id}`}
+                    data = {this.props.data}
                     renderItem = {this.renderItem}
                 />
             </View>

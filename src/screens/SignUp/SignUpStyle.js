@@ -53,5 +53,30 @@ export default StyleSheet.create({
         marginLeft: 16,
         marginTop: 15,
         zIndex: 2
+    },
+    lineSeparate: {
+        borderTopColor: colors.blurWhite2,
+        borderTopWidth: 1.5,
+        borderStyle: 'dotted',
+    },
+    descriptionText: {
+        fontSize: 20,
+        fontFamily: fonts.PoppinsSemiBold,
+        color: colors.boldBlue
+    },
+    buttonFavor: {
+        width: '100%',
+        elevation: 0,
+        shadowOffset: { height: 0, width: 0 },
+        shadowOpacity: 0,
+        marginTop: 10,
+        ...layouts.columnCenterCenter
+    },
+    locationText: {
+        color: colors.lighGrey,
+        fontSize: 20
+    },
+    locationButton: {
+        marginTop: 10
     }
 })

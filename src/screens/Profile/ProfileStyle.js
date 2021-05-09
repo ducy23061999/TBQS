@@ -22,13 +22,14 @@ export default StyleSheet.create({
     center: {
         ...layouts.columnCenterCenter,
         marginLeft: 8,
-        marginRight: 8
+        marginRight: 8,
+        marginTop: 300,
+        backgroundColor: 'blue'
     },
     avata: {
         width: 90,
         height: 90,
         borderRadius: 45,
-        marginTop: 10
     },
     emailText: {
         marginTop: 10,
@@ -44,7 +45,7 @@ export default StyleSheet.create({
     },
     button: {
         borderRadius: 8,
-        marginTop: 10
+        marginTop: 10,
     },
     textItem: {
         fontFamily: fonts.PoppinsMedium,
