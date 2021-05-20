@@ -16,12 +16,12 @@ export default function({onPressSearch, onPressFilter, onPressRefresh}) {
     return (
         <Header hasTabs>
             <View style = {styles.container}>
-              <TouchableOpacity style = {styles.item} onPress = {onPressSearch}>
+              {/* <TouchableOpacity style = {styles.item} onPress = {onPressSearch}>
                 <Ionicons name = 'search' size = {20} color = {colors.white}/>
               </TouchableOpacity>
               <TouchableOpacity style = {styles.item} onPress = {onPressFilter}>
                 <Ionicons name = 'filter' size = {20} color = {colors.white}/>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity onPress = {onPressFilter}>
                 <Ionicons name = 'sync-alt' size = {20} color = {colors.white}/>
               </TouchableOpacity>

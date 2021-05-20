@@ -6,22 +6,13 @@ import {
 import {Tags} from '../../../components';
 import styles from './TagEditorStyle'
 
-export default function ({}) {
+export default function ({data}) {
 
     return (
         <View style = {styles.container}>
             <Text style = {styles.fieldText}>Sở thích</Text>
             <View style = {styles.tagContainer}>
-                <Tags data = {[
-                    {
-                        id: 1,
-                        name: "code"
-                    },
-                    {
-                        id: 2,
-                        name: "game"
-                    }
-                ]}/>
+                <Tags data = {data}/>
             </View>
         </View>
     )

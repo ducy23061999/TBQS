@@ -14,5 +14,7 @@ export default Storage = {
             return '';
         }
     },
-    
+    removeToken: async () => {
+        await AsyncStorage.removeItem(Key.STORE.TOKEN);
+    }
 }

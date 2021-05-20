@@ -31,7 +31,9 @@ export const Screens = {
     Login: "Login",
     SignUp: "SignUp"
 }
-export const API_HOST = 'http://localhost:3600'
+export const API_HOST = 'http://192.168.1.3:3600'
+export const HOOK_SOCKET = "ws://192.168.1.3:3600"
+
 export const API = {
     // USER
     login: `${API_HOST}/api/users/login`,
@@ -39,6 +41,7 @@ export const API = {
     updateUser: `${API_HOST}/api/users/me`,
     disableUser: `${API_HOST}/api/users/deactive`,
     checkUserExist: `${API_HOST}/api/users/checkUser`,
+    refreshToken: `${API_HOST}/api/users/refreshtoken`,
 
     // SCHOOL
     getAllSchool: `${API_HOST}/api/school`,
@@ -72,10 +75,11 @@ export const API = {
     createGroup: `${API_HOST}/api/groups/create`,
     getRequestInvite: `${API_HOST}/api/groups/requestInviteGroup`,
     verifyJoinGroup: `${API_HOST}/api/groups/verifyJoin`,
+    createVerify: `${API_HOST}/api/groups/createJoin`,
     
     // Chat
-    createMessageGroup: `${API_HOST}/api/chat`,
-    getGroupChatMessage: `${API_HOST}/api/chats/group/{id}`,
+    createMessageGroup: `${API_HOST}/api/chats`,
+    getGroupChatMessage: `${API_HOST}/api/chats/group`,
     getPersonChatMessage: ''
 }
 

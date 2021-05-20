@@ -15,8 +15,8 @@ function addFavoriteSuccess (data) {
 
 export function fetchUserFavorite (userId) {
     return (dispatch) => {
-        Service.getFavoriteByUser(userId)
-        .then(data => dispatch(setUserFavorite(data)))
+        Service.getFavoriteByUser()
+        .then(data => dispatch(setUserFavorite(data.data)))
         .catch(error => dispatch(fetchUserFavoriteFail()))
     }
 }
@@ -54,6 +54,17 @@ export function updateUserFavorite(favoriteIds) {
         .catch(error => console.log(error))
     }
 }
+export function refreshToken() {
+    return dispatch => {
+        Service.refreshToken()
+        .then(userResponse => {
+            const userData = userResponse;
+            console.log("REFRESH TOKEN", userResponse)
+            return dispatch(setUserData(userData))
+        })
+        .catch(error => console.log(error))
+    }
+}
 
 function setSuggestLocationUser(data) {
     return {type: ActionNames.SET_FRIEND_LOCATION, data: data}
@@ -86,9 +97,9 @@ export function getFriendLocation() {
 const setMajorList = (data) => ({type: ActionNames.FETCH_ALL_MAJOR_LIST, data})
 export function fetchMajorList() {
     return (dispatch) => {
-       Service.getAllMajors()
+       Service.getAllMajors({})
        .then(data => {
-           return dispatch(setMajorList(data))
+           return dispatch(setMajorList(data.data))
        })
        .catch(error => console.log(error))
     }
@@ -115,6 +126,28 @@ export function updateFriendSelectList(friend, isChecked) {
 }
 
 
+export function setMessageToGroup(messages) {
+    return {type: ActionNames.SET_GROUP_MESSAGE, data: messages}
+}
 
+export function addMessageToGroup(message) {
+    return {type: ActionNames.ADD_MESSAGE_TO_GROUP, data: message}
+}
+
+export function setMessageToPerson(allPersonMessage) {
+    return {type: ActionNames.SET_MESSAGE_USER, data: allPersonMessage}
+}
+
+export function fetchAllScholl() {
+    return dispatch => {
+        Service.getAllSchool()
+        .then(response => {
+            return dispatch({type: ActionNames.SET_ALL_SCHOOL, data: response.data})
+        })
+        .catch(error => {
+
+        })
+    }
+}
 
 

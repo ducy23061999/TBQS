@@ -30,7 +30,7 @@ export default function({style, item}) {
             <CoverView 
                     title = {name}
                     desc  = {major.name}
-                    image = {{uri: fbAvt}}
+                    image = {fbAvt}
                 />
                 <View style = {styles.borderTopView}>
                     <View style = {styles.content}>

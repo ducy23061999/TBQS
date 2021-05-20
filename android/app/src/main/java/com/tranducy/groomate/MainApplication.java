@@ -1,5 +1,4 @@
-package com.timbanqs;
-
+package com.tranducy.groomate;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;

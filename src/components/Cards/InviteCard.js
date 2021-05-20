@@ -26,7 +26,7 @@ export default function InviteCard({name, targetId, type, onPressUser, onPressGo
                             <Ionicons name = 'times' style = {styles.functionInviteImage}/>
                         </Button>
                     </View>
-               <View style = {{marginLeft: 10}}>
+               <View style = {{marginLeft: 10, width: '90%'}}>
                     <View >
                         <Text style={styles.inviteContainText}
                             lineBreakMode = 'tail'
@@ -40,7 +40,7 @@ export default function InviteCard({name, targetId, type, onPressUser, onPressGo
                             </Text> 
                                 { type == 'invite' ?  
                                     ' muốn bạn tham gia nhóm        ' :
-                                    ' muốn tham gia nhóm của bạn'
+                                    ' muốn tham gia nhóm của bạn                   '
                                 }
                             </Text>
                     </View>

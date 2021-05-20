@@ -7,20 +7,18 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import colors from '../../../comon/colors/colors'
 
-export default function({}) {
+export default function({onPressAddIntoGroup, onPressChatDirect}) {
     return (
         <View style = {styles.container}>
             <CusButton 
                 name = 'user-friends'
                 style = {{backgroundColor: colors.red}}
+                onPress = {onPressAddIntoGroup}
             />
             <CusButton 
-                name = 'info'
-                style = {{backgroundColor: colors.yellow}}
-            />
-            <CusButton 
-                name = 'share'
+                name = 'comments'
                 style = {{backgroundColor: colors.boldGreen}}
+                onPress = {onPressChatDirect}
             />
         </View>
     )

@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.timbanqs"
+        applicationId "com.tranducy.groomate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

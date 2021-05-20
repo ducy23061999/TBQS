@@ -25,7 +25,7 @@ export default function TagsView({data, onTagChange, onTagClick}) {
             contentContainerStyle = {{
                 display: 'flex',
                 flexDirection: 'row',
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
             }}
             keyExtractor = {item => item.id}
             data = {tags}

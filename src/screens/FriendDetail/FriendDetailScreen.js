@@ -6,7 +6,8 @@ import {
     Easing,
     InteractionManager,
     StatusBar,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native'
 import {connect} from 'react-redux'
 import images from '../../images'
@@ -17,6 +18,7 @@ import {
     BlurImage,
     BackFloatButton
 } from '../../components'
+import Services from '../../services';
 import FriendCarouselItem from './FriendCarouselItem'
 import BottomGroupButton from './BottomGroupButton'
 
@@ -31,6 +33,9 @@ export class FriendDetailScreen extends Component {
 
         this.state = {
             needUpdateBlur: false,
+            groupData: null,
+            isLoading: true,
+            currentFriend: {}
         }
     }
 
@@ -41,6 +46,7 @@ export class FriendDetailScreen extends Component {
             this.props.navigation.goBack()
         }
     }
+    
 
     renderCarouselItem = ({item}) => {
         return (
@@ -71,12 +77,20 @@ export class FriendDetailScreen extends Component {
         )
     }
     componentDidMount() {
+        const {suggestFriends} = this.props;
+        const {activeIndex} = this.props.route.params;
         // const times = setTimeout(() => {
         //     this.setState({
         //         needUpdateBlur: true
         //     });
         //     clearTimeout(times);
         // }, 500)
+        this.loadGroupData();
+
+        this.setState({
+            currentFriend: suggestFriends[activeIndex]
+        })
+
        
     }
 
@@ -84,6 +98,63 @@ export class FriendDetailScreen extends Component {
         this.setState({
             needUpdateBlur: false
         });
+    }
+
+    onPressAddIntoGroup = () => {
+        const {groupData, currentFriend} = this.state;
+
+        // IF Aready have group -> Add Into Group
+        console.log("Hello", currentFriend)
+        if (groupData.id) {
+            Alert.alert(
+                "Xác nhận",
+                "Bạn muốn thêm người này vào group chứ?",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                  },
+                  { text: "OK", onPress: () => {
+                    Services.createVerify({
+                        inviteUsers: [currentFriend.id]
+                    }).then(response => {
+                        alert("Gửi lời mời tham gia nhóm thành công")
+                    })
+                    .catch(error => {
+                        alert("Gửi lời mời tham gia nhóm thất bại")
+                    })
+                  }}
+                ]
+            );
+        } else {
+            global.friendListSelected = [...global.friendListSelected, currentFriend.id];
+            alert("Đã thêm vào danh sách của bạn")
+        }
+        // IF Not YET -> Add to cache
+    }
+
+    onPressChatDirect = () => {
+        // INCOMING
+    }
+
+    loadGroupData = () => {
+        this.setState({isLoading: true})
+        Services.getMyGroup()
+        .then(response => {
+            const data = response.data;
+            console.log(response);
+            this.setState({
+                groupData: data,
+                isLoading: false
+            })   
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({
+                isLoading: false
+            })
+        })
     }
 
     render() {
@@ -104,9 +175,13 @@ export class FriendDetailScreen extends Component {
                         sliderWidth = {SLIDER_WIDTH}
                         itemHeight = {ITEM_HEIGHT}
                         activeIndex = {activeIndex}
+                        onChangeItem = {(item) => this.setState({currentFriend: item})}
                         
                     />
-                    <BottomGroupButton />
+                    <BottomGroupButton 
+                        onPressAddIntoGroup = {this.onPressAddIntoGroup}
+                        onPressChatDirect = {this.onPressChatDirect}
+                    />
                 </View>
             </>
         )

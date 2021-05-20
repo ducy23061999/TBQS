@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'TimBanQS' do
+target 'Groomate' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -18,7 +18,9 @@ target 'TimBanQS' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
-  target 'TimBanQSTests' do
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  target 'GroomateTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -38,10 +40,10 @@ target 'TimBanQS' do
   end
 end
 
-target 'TimBanQS-tvOS' do
-  # Pods for TimBanQS-tvOS
+target 'Groomate-tvOS' do
+  # Pods for Groomate-tvOS
 
-  target 'TimBanQS-tvOSTests' do
+  target 'Groomate-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

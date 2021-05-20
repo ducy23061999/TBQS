@@ -6,6 +6,8 @@ import friendReducer from './friendReducer';
 import majorReducer from './majorReducer';
 import groupReducer from './groupReducer';
 import selectedFriendReducer from './selectedFriendReducer';
+import chatReducer from './chatReducer'
+import schoolReducer from './schoolReducer'
 
 export default combineReducers({
     counterReducer: counterReducer,
@@ -14,5 +16,7 @@ export default combineReducers({
     friendReducer,
     majorReducer,
     groupReducer,
-    selectedFriendReducer
+    selectedFriendReducer,
+    chatReducer,
+    schoolReducer
 })

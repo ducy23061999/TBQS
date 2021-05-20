@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux'
 
 export default function({data, onPressDeleted}) {
     const userData = useSelector(state => state.userReducer)
- 
+    
+
     return (
         <View>
             <FlatList 
@@ -16,9 +17,10 @@ export default function({data, onPressDeleted}) {
                     const fbAvt = `https://graph.facebook.com/${item.id}/picture?type=large&access_token=${userData.access_token}`;
                     return (
                         <MemberCard
+                            status = {true}
                             name = {`${item.first_name} ${item.last_name}`}
                             image = {fbAvt}
-                            onPressDeleted = {onPressDeleted}
+                            onPressDeleted = {onPressDeleted ? () => onPressDeleted(item) : null}
                             
                         />
                     )

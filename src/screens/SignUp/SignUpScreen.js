@@ -192,6 +192,7 @@ export class SignUpScreen extends Component {
                 access_token: accessToken,
                 created_at: Date.now(),
                 active: true,
+                gender: 1
             })
             .then(async data => {
                 if (data.code) {

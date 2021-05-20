@@ -14,7 +14,7 @@ import images from '../../../images'
 import FastImage from 'react-native-fast-image'
 import colors from '../../../comon/colors/colors'
 
-export default function({onPressItem}) {
+export default function({data, onPressItem, groupName, imageURL}) {
 
     const renderItem = ({item}) => {
         return (
@@ -23,7 +23,7 @@ export default function({onPressItem}) {
               onPress = {() => {
                 onPressItem(item)
               }}>
-                <LeftView/> 
+                <LeftView name = {groupName} message = {item.message} imageURL = {imageURL}/> 
             </TouchableOpacity>
         )
     }
@@ -31,7 +31,7 @@ export default function({onPressItem}) {
     return (
         <View>
             <FlatList 
-                data = {[1]}
+                data = {data}
                 key = {index => `${index}`}
                 renderItem = {renderItem}
             />
@@ -39,19 +39,19 @@ export default function({onPressItem}) {
     )
 }
 
-const LeftView = ({readed}) => {
+const LeftView = ({name, message ,readed, imageURL}) => {
 
     return (
       <View style = {styles.leftContain}>
         <View>
           <Image 
-            uri = {images.thumnail} 
+            uri = {{uri: imageURL}} 
             style = {styles.image}
             resizeMode = {FastImage.resizeMode.cover}
           />
         </View>
         <View style = {{marginLeft: 10}}>
-          <Text style = {styles.nameText}>Trần Đức Ý</Text>
+          <Text style = {styles.nameText}>{name}</Text>
           <Text 
             style = {[
                 styles.statusText,
@@ -59,7 +59,7 @@ const LeftView = ({readed}) => {
             ]}
             numberOfLines= {1}
             lineBreakMode = 'tail'>
-                Hey, mình đang cần tìm bạn để lập nhóm quân sự
+                {message}
             </Text>
         </View>
   

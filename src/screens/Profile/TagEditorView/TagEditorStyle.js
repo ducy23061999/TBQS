@@ -7,7 +7,7 @@ export default StyleSheet.create({
     container: {
         width: '100%',
         minHeight: 60,
-        ...layouts.columnSpaceStart,
+        // ...layouts.columnSpaceStart,
         borderBottomWidth: 0.5,
         borderBottomColor: colors.greyTransparent,
         borderStyle: 'dashed',

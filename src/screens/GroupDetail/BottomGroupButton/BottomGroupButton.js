@@ -7,20 +7,18 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import colors from '../../../comon/colors/colors'
 
-export default function({}) {
+export default function({onRequestJoinGroup, onShareGroup}) {
     return (
         <View style = {styles.container}>
             <CusButton 
                 name = 'user-plus'
                 style = {{backgroundColor: colors.red}}
-            />
-            <CusButton 
-                name = 'info'
-                style = {{backgroundColor: colors.yellow}}
+                onPress = {onRequestJoinGroup}
             />
             <CusButton 
                 name = 'share'
                 style = {{backgroundColor: colors.boldGreen}}
+                onPress = {onShareGroup}
             />
         </View>
     )

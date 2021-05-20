@@ -23,8 +23,19 @@ export default StyleSheet.create({
         ...layouts.columnCenterCenter,
         marginLeft: 8,
         marginRight: 8,
-        marginTop: 300,
-        backgroundColor: 'blue'
+        marginTop: 40,
+    },
+    tagCell: {
+        maxHeight: 100,
+        width: '100%'
+    },
+    buttonFavor: {
+        width: '100%',
+        elevation: 0,
+        shadowOffset: { height: 0, width: 0 },
+        shadowOpacity: 0,
+        marginTop: 10,
+        ...layouts.columnCenterCenter
     },
     avata: {
         width: 90,

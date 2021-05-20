@@ -3,5 +3,8 @@ module.exports = {
     fiend: require('./friend.png'),
     friendship: require('./friendship.png'),
     crowd: require('./crowd.png'),
-    wallpaperLogin: require('./login_screen.jpg')
+    wallpaperLogin: require('./login_screen.jpg'),
+    broke: require('./broke.png'),
+    team: require('./team.png'),
+    logo: require('./groomate.png')
 }

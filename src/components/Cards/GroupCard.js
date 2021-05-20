@@ -13,6 +13,7 @@ import { SharedElement } from 'react-navigation-shared-element';
 import {MemberHoriList} from '../MemberList'
 import VerifyMemberView from '../VerifyMemberView'
 import {useSelector} from 'react-redux'
+const DEFAULT_IMAGE = "https://image.freepik.com/free-vector/group-people-flat-design_23-2148462710.jpg";
 
 export default function GroupCard({item, onPress}) {
     const wrapOnpress = () => {
@@ -34,10 +35,10 @@ export default function GroupCard({item, onPress}) {
                 verifyMember = {1}
 
             />
-            <ClaimAuthorView />
+            <ClaimAuthorView description = {item.description}/>
             <SharedElement id={`group_item.${item}.photo`} style = {{width: '100%'}}>
                 <Image 
-                    source = {images.thumnail}
+                    source = {{uri: item.img.length > 0 ? item.img : DEFAULT_IMAGE}}
                     style = {styles.coverGroupImage}
                     resizeMode = 'cover'
                     resizeMethod = 'scale'
@@ -95,10 +96,10 @@ export const GroupAuthorView = ({user, totalMember, verifyMember}) => {
     )
 }
 
-export const ClaimAuthorView = ({}) => {
+export const ClaimAuthorView = ({description}) => {
     return (
         <View style = {styles.claimContain}>
-            <Text style = {styles.clainText}>Hãy tham gia nhóm của chúng mình nhé</Text>
+            <Text style = {styles.clainText}>{description || 'Chưa cập nhật'}</Text>
         </View>
     )
 }

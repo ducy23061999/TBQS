@@ -6,7 +6,8 @@ import {
     Easing,
     InteractionManager,
     StatusBar,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native'
 import {connect} from 'react-redux'
 import images from '../../images'
@@ -15,10 +16,12 @@ import styles from './GroupDetailStyle'
 import {
     CarouselSlide,
     BlurImage,
-    BackFloatButton
+    BackFloatButton,
+    
 } from '../../components'
 import GroupCarouselItem from './GroupCarouselItem'
 import BottomGroupButton from './BottomGroupButton'
+import Services from '../../services';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const SLIDER_HEIGHT = Dimensions.get('window').height;
@@ -30,7 +33,10 @@ export class GroupDetailScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            needUpdateBlur: false
+            needUpdateBlur: false,
+            isLoading: true,
+            groupData: {},
+            currentGroup: {}
         }
     }
 
@@ -39,6 +45,25 @@ export class GroupDetailScreen extends Component {
         back: () => {
             this.props.navigation.goBack()
         }
+    }
+
+    loadGroupData = () => {
+        this.setState({isLoading: true})
+        Services.getMyGroup()
+        .then(response => {
+            const data = response.data;
+            console.log(response);
+            this.setState({
+                groupData: data,
+                isLoading: false
+            })   
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({
+                isLoading: false
+            })
+        })
     }
 
     renderCarouselItem = ({item}) => {
@@ -67,18 +92,56 @@ export class GroupDetailScreen extends Component {
         )
     }
     componentDidMount() {
+        const {groupData} = this.props;
+        const {activeGroupIndex} = this.props.route.params;
+        
         const times = setTimeout(() => {
             this.setState({
                 needUpdateBlur: true
             });
             clearTimeout(times);
         }, 500)
+        this.loadGroupData()
+        this.setState({
+            currentGroup: groupData[activeGroupIndex]
+        })
     }
 
     componentWillUnmount() {
         this.setState({
             needUpdateBlur: false
         });
+    }
+
+    onRequestJoin = () => {
+        const {groupData, currentGroup} = this.state;
+
+        console.log(groupData, currentGroup)
+        if (!groupData) {
+            Alert.alert(
+                "Xác nhận",
+                "Bạn muốn yêu cầu vào nhóm chứ?",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                  },
+                  { text: "OK", onPress: () => {
+                    Services.requestJoinGroup({
+                        groupId: currentGroup.id
+                    }).then(response => {
+                        alert("Gửi lời mời tham gia nhóm thành công")
+                    })
+                    .catch(error => {
+                        alert("Gửi lời mời tham gia nhóm thất bại")
+                    })
+                  }}
+                ]
+            );
+        } else {
+            alert("Có nhóm rồi mà còn tham gia chị nựa. Tham quá :(((")
+        }
     }
 
     render() {
@@ -99,8 +162,12 @@ export class GroupDetailScreen extends Component {
                         sliderWidth = {SLIDER_WIDTH}
                         itemHeight = {ITEM_HEIGHT}
                         activeIndex = {activeGroupIndex}
+                        onChangeItem = {(item) => this.setState({currentGroup: item})}
                     />
-                    <BottomGroupButton />
+                    <BottomGroupButton 
+                        onRequestJoinGroup = {this.onRequestJoin}
+                        onShareGroup = {() => {}}
+                    />
                 </View>
             </>
         )

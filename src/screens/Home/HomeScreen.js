@@ -6,28 +6,19 @@ import {
 import {connect} from 'react-redux'
 import {
     Container,
-    Content,
-    Header,
-    Tabs,
-    Tab,
-    TabHeading,
-    Icon
 } from 'native-base'
-import {
-    Tabs as CustomTabs,
-    CustomHeader
-} from '../../components'
 import PersonView from './PersonView'
 import GroupView from './GroupView'
 import MergeGroupView from './MergeGroupView'
 import FloatButton from './FloatButton'
 import HomeHeader from './HomeHeader'
 import styles from './HomeStyle'
-import {Screens} from '../../comon/Constants'
+import {Const, Screens, HOOK_SOCKET} from '../../comon/Constants'
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import {getFriendLocation, getFriendSuggestUser, getSuggestGroup, 
-    updateFriendSelectList} from '../../store/actions';
+    updateFriendSelectList, addMessageToGroup, refreshToken} from '../../store/actions';
 import Services from '../../services'
+import io from 'socket.io-client'
 
 const TAB_STATE = {
     PERSONAL: 0,
@@ -50,6 +41,8 @@ export class HomeScreen extends Component {
         this.props.getFriendLocation()
         this.props.getFriendSuggestUser()
         this.props.getSuggestGroup()
+        this.props.refreshToken()
+        this.listenerSocket()
     }
 
     navigate = this.props.navigation
@@ -106,6 +99,7 @@ export class HomeScreen extends Component {
         })
         .then(response => {
             alert("Tạo mới group thành công")
+            this.props.refreshToken()
             console.log(response)
         })
         .catch(error => {
@@ -119,6 +113,47 @@ export class HomeScreen extends Component {
         console.log("AHIHIHI")
         global.friendListSelected = [];
        this.forceUpdate()
+    }
+
+    listenerSocket = async () => {
+        const {userData} = this.props;
+        
+        const socket = io.connect(HOOK_SOCKET, {
+            query: `token=${userData.token}`,
+        });
+
+        that = this;
+        socket.on('connect', function () {
+            console.log("connected")
+            socket.on('message', function (message) {
+              console.log(message)
+              socket.emit('onmessage', 'Hello from server')
+            })
+          
+            socket.on('JoinGroup', function (message) {
+              console.log(message)
+            })
+          
+            socket.on('NewRequestJoin', function (message) {
+              console.log(message)
+            })
+          
+            socket.on('NewRequestMerge', function (message) {
+              console.log(message)
+            })
+          
+            socket.on('NewMessage', function (message) {
+                console.log("NEW MESSAGE", message)
+                const formatMessage = {
+                    ...message.message,
+                    user: message.sender,
+                    date_send: message.date_send,
+                }
+
+                that.props.addMessageToGroup(formatMessage);
+            })
+           
+        })
     }
 
     renderBody(tabState) {
@@ -148,9 +183,7 @@ export class HomeScreen extends Component {
         )
     }
     render() {
-        
         const {userData} = this.props;
-        console.log(userData)
         const fbAvt = `https://graph.facebook.com/${userData.id}/picture?type=large&access_token=${userData.access_token}`;
         const {isAddFriend} = this.state;
         return (
@@ -199,6 +232,8 @@ const mapActionToDispatch = (dispatch) => ({
     getFriendLocation: () => dispatch(getFriendLocation()),
     getFriendSuggestUser: () => dispatch(getFriendSuggestUser()),
     getSuggestGroup: () => dispatch(getSuggestGroup()),
-    updateFriendSelectList: (friend, isChecked) => dispatch(updateFriendSelectList(friend, isChecked))
+    updateFriendSelectList: (friend, isChecked) => dispatch(updateFriendSelectList(friend, isChecked)),
+    addMessageToGroup: (message) => dispatch(addMessageToGroup(message)),
+    refreshToken: () => dispatch(refreshToken())
 })
 export default connect(mapStateToProps, mapActionToDispatch)(HomeScreen)

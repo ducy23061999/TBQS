@@ -11,7 +11,7 @@ import {
 import styles from './ManageScreenStyle'
 import {connect} from 'react-redux'
 import Header from './ManageHeader'
-import {Tabs, InviteCard, RequestJoinCard} from '../../components'
+import {Tabs, InviteCard, RequestJoinCar, EmptyManage} from '../../components'
 import { Screens } from '../../comon/Constants'
 import { FlatList } from 'react-native-gesture-handler'
 import Services from '../../services'
@@ -24,7 +24,8 @@ export class ManageScreen extends Component {
             isLoading: true,
             verifyJoinRequests: [],
             joinGroupRequest: [],
-            messageError: ''
+            messageError: '',
+            groupData: null,
         }
     }
 
@@ -32,9 +33,23 @@ export class ManageScreen extends Component {
         console.log("hello")
         this.fetchData("INVITE");
         this.fetchData("REQUEST");
+        this.loadGroupData()
     }
 
-    
+    loadGroupData = () => {
+        this.setState({isLoading: true})
+        Services.getMyGroup()
+        .then(response => {
+            const data = response.data;
+            console.log(response);
+            this.setState({
+                groupData: data,
+            })   
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
     approveJoinGroup = (userId, action) => {
         return Services.approveMember({
             userId: userId,
@@ -125,43 +140,58 @@ export class ManageScreen extends Component {
     }
     render() {
         const {verifyJoinRequests, joinGroupRequest} = this.state;
-
+        const {userData} = this.props;
+        const fbAvt = `https://graph.facebook.com/${userData.id}/picture?type=large&access_token=${userData.access_token}`; 
+        
         return (
             <Container style = {{flex: 1}}>
                 <Header
+                    name = {`${userData.first_name} ${userData.last_name}`}
+                    img = {fbAvt}
                     onPressYourGroup = {this.navigate.yourGroup}
+                    isAbleShowGroup = {this.state.groupData}
                 />
                 <Tabs 
                     PersonView = {() => (
                         <View style = {{flex: 1}}>
-
-                            <FlatList 
-                                data = {verifyJoinRequests}
-                                key = {(item, index) => `verify_join_${index}`}
-                                renderItem = {({item}) => 
-                                 <InviteCard 
-                                    type = 'invite'
-                                    name = {item?.user.first_name + ' ' + item?.user.last_name}
-                                    targetId = {item.group_id}
-                                    onPressActionBtn = {this.onPressActionInvite}
-                                 />}
-                            />
+                            {
+                                verifyJoinRequests && verifyJoinRequests.length > 0?
+                                <FlatList 
+                                    data = {verifyJoinRequests}
+                                    key = {(item, index) => `verify_join_${index}`}
+                                    renderItem = {({item}) => 
+                                    <InviteCard 
+                                        type = 'invite'
+                                        name = {item?.user.first_name + ' ' + item?.user.last_name}
+                                        targetId = {item.group_id}
+                                        onPressActionBtn = {this.onPressActionInvite}
+                                    />}
+                                />
+                                :
+                                <EmptyManage />
+                            }
+                            
                         </View>
                     )}
                     GroupView = {() => (
                         <View style = {{flex: 1}}>
-                            <FlatList 
-                                data = {joinGroupRequest}
-                                key = {(item, index) => `request_join_${index}`}
-                                renderItem = {({item}) =>  
-                                    <InviteCard 
-                                        name = {item?.user.first_name + ' ' + item?.user.last_name}
-                                        type = 'request'
-                                        targetId = {item.user.id}
-                                        onPressActionBtn = {this.onPressActionRequest}
-                                    />
-                                }
-                            />
+                            {joinGroupRequest && joinGroupRequest.length > 0?
+                                <FlatList 
+                                    data = {joinGroupRequest}
+                                    key = {(item, index) => `request_join_${index}`}
+                                    renderItem = {({item}) =>  
+                                        <InviteCard 
+                                            name = {item?.user.first_name + ' ' + item?.user.last_name}
+                                            type = 'request'
+                                            targetId = {item.user.id}
+                                            onPressActionBtn = {this.onPressActionRequest}
+                                        />
+                                    }
+                                />
+                            :
+                                <EmptyManage />
+                            }
+                            
                         </View>
                     )}
                     MergeGroupView =  {() => (
@@ -175,4 +205,12 @@ export class ManageScreen extends Component {
     }
 }
 
-export default connect()(ManageScreen)
+const mapStateToProps = (state) => ({
+    userData: state.userReducer,
+})
+
+const mapActionToDispatch = (dispatch) => ({
+    
+})
+
+export default connect(mapStateToProps, mapActionToDispatch)(ManageScreen)

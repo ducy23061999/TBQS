@@ -18,14 +18,15 @@ import {CoverView, Tags, ViewMoreText, MemberVertiList} from '../../../component
 import MapView from 'react-native-maps';
 import {useSelector} from 'react-redux'
 
+const DEFAULT_IMAGE = "https://image.freepik.com/free-vector/group-people-flat-design_23-2148462710.jpg";
+
 export default function({style, item}) {
     const userData = useSelector(state => state.userReducer)
-    const fbAvt = `https://graph.facebook.com/${100006281083345}/picture?type=large&access_token=${userData.access_token}`;
 
     return (
         <Card style = {[styles.container, style]}>
             <ScrollView>
-                <CoverView image = {{uri: fbAvt}}/>
+                <CoverView image = {item.img.length > 0 ? item.img : DEFAULT_IMAGE}/>
                 <View style = {styles.borderTopView}>
                     <View style = {styles.content}>
                         <AgeView
@@ -34,7 +35,6 @@ export default function({style, item}) {
                         <DescriptView 
                             longText = {item.description}
                         />
-                        <TagsView />
                         <ListMemberView data = {item.members}/>
                     </View>
                 </View>

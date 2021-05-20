@@ -17,11 +17,20 @@ export default {
     updateUser: (params) => {
         return API.sendRequest(URL.updateUser, params, {method: 'PUT'})
     },
+    getMe: () => {
+        return API.sendRequest(URL.updateUser, {}, {method: 'GET'})
+    },
+    deleteMe: () => {
+        return API.sendRequest(URL.updateUser, {}, {method: 'DELETE'});
+    },
     disableUser: (params) => {
         return API.sendRequest(URL.disableUser, params, {method: 'PUT'})
     },
     checkUser: (query) => {
         return API.sendRequest(URL.checkUserExist, query, {method: 'GET'});
+    },
+    refreshToken: () => {
+        return API.sendRequest(URL.refreshToken, {}, {method: 'GET'})
     },
     getAllSchool: (params) => {
         return API.sendRequest(URL.getAllSchool, params, {method: 'GET'})
@@ -39,8 +48,8 @@ export default {
         return API.sendRequest(URL.updateFavorite, params, {method: 'POST'});
     },
 
-    getFavoriteByUser: (param) => {
-        return API.sendRequest(URL.favoriteByUser, param)
+    getFavoriteByUser: () => {
+        return API.sendRequest(URL.favoriteByUser, {}, {method: 'GET'})
     },
     addFavorite: (params) => {
         return API.sendRequest(URL.addFavorite, params, {method: 'POST'})
@@ -85,10 +94,10 @@ export default {
         return API.sendRequest(URL.approveMergeGroup, params, {method: 'POST'})
     },
     updateGroup: (params) => {
-        return API.sendRequest(URL.updateYourGroup, params, {method: 'PUT'})
+        return API.sendRequest(URL.updateYourGroup, params, {method: 'PUT', contentType: 'multipart/form-data'})
     },
     deleteGroup: () => {
-        return API.sendRequest(URL.deleteYourGroup)
+        return API.sendRequest(URL.deleteYourGroup, {}, {method: 'DELETE'})
     },
     createGroup: (params) => {
         return API.sendRequest(URL.createGroup, params, {method: 'POST'})
@@ -99,11 +108,14 @@ export default {
     verifyJoinGroup: (params) => {
         return API.sendRequest(URL.verifyJoinGroup, params, {method: 'POST'})
     },
+    createVerify: (params) => {
+        return API.sendRequest(URL.createVerify, params, {method: 'POST'})
+    },
     createNewMessage: (params) => {
         return API.sendRequest(URL.createMessageGroup, params, {method: 'POST'})
     },
     getGroupChatMessage: (param) => {
-        return API.sendRequest(parseURL(URL.createMessageGroup, param))
+        return API.sendRequest(URL.getGroupChatMessage, {}, {method: 'GET'})
     },
     getPersonGroupChatMessage: (param) => {
         return API.sendRequest(parseURL(URL.getPersonChatMessage, param))

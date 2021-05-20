@@ -8,39 +8,46 @@ import {
     Text,
     Left,
     Right,
-    Icon
+    Icon,
 } from 'native-base'
 import Ionicons from 'react-native-vector-icons/FontAwesome5';
-
+import {Image} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {Tabs, Image} from '../../../components'
+import {Tabs} from '../../../components'
 import styles from './ManageHeaderStyle'
 import images from '../../../images'
 import FastImage from 'react-native-fast-image'
 
 
-export default function({onPressYourGroup, onPressFilter, onPressRefresh}) {
+export default function({
+  img, name, status, isAbleShowGroup,
+  onPressYourGroup, onPressFilter, onPressRefresh
+}) {
     return (
         <Header hasTabs style = {styles.container}>
-            <LeftView />
-            <RightView onPress={onPressYourGroup}/>
+            <LeftView 
+              name = {name}
+              img = {img}
+              status
+            />
+            <RightView onPress={onPressYourGroup} isAbleShowGroup = {isAbleShowGroup}/>
         </Header>
     )
 }
 
 
-const LeftView = () => {
+export const LeftView = ({name, img, status}) => {
   return (
     <View style = {styles.leftContain}>
       <View>
         <Image 
-          uri = {images.thumnail} 
+          source = {{uri: img}} 
           style = {styles.image}
-          resizeMode = {FastImage.resizeMode.cover}
+          resizeMode = 'cover'
         />
       </View>
       <View style = {{marginLeft: 10}}>
-        <Text style = {styles.nameText}>Trần Đức Ý</Text>
+        <Text style = {styles.nameText}>{name}</Text>
         <Text style = {styles.statusText}>Đang hoạt động</Text>
       </View>
 
@@ -48,15 +55,15 @@ const LeftView = () => {
   )
 }
 
-const RightView = ({onPress}) => {
+export const RightView = ({isAbleShowGroup, onPress}) => {
   return (
     <TouchableOpacity
       onPress = {onPress}
     >
-      <View style = {styles.rightContain}>
+      {isAbleShowGroup && <View style = {styles.rightContain}>
             <Ionicons name = 'users' style = {styles.groupIcon}/>
             <Text style = {styles.yourGroupText}>Nhóm của bạn</Text>
-      </View>
+      </View> }
     </TouchableOpacity>
   )
 }

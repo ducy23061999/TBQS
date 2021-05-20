@@ -23,21 +23,35 @@ import Ionicons from 'react-native-vector-icons/FontAwesome5';
 import colors from '../../../comon/colors/colors';
 import {useSelector} from 'react-redux'
 
-export default function({style, item, onClickUpLoad, onDeleteMember}) {
-    console.log(item);
 
+export default function({
+    style,
+    localImage, descriptionText, members, isEditable,
+    onClickUpLoad, onDeleteMember,onDeleteGroup, onTextChange}) {
+    
     return (
         <View style = {[styles.container, style]}>
             <ScrollView>
-                <CoverView onClickUpLoad = {onClickUpLoad}/>
+                {isEditable ? 
+                    <CoverView onClickUpLoad = {onClickUpLoad} image = {localImage}/>
+                    : <CoverView image = {localImage}/>
+                }
                 <View style = {styles.borderTopView}>
                     <View style = {styles.content}>
-                        <AgeView memberCount = {item.members.length}/>
-                        <DescriptView longText = {item.description}/>
+                        <AgeView memberCount = {members.length}/>
+                        {/* item.description */}
+                        <DescriptView 
+                            longText = {descriptionText} 
+                            onTextChange = {onTextChange}
+                            isDisableInput = {isEditable}
+                        />
                         {/* <TagsView tags = {[]} onPressAdd = {() => {}}/> */}
-                        <ListMemberView members = {item.members} onDeleted = {onDeleteMember}/>
-                        <AdvanceView />
-                        <View style = {{width: '100%', height: 90}}/>
+                        {isEditable ? 
+                            <ListMemberView members = {members} onDeleted = {onDeleteMember}/>
+                            :  <ListMemberView members = {members}/>
+                        }
+                        <AdvanceView onDeleteGroup = {onDeleteGroup} isEditable = {isEditable}/>
+                        <View style = {{width: '100%', height: 150}}/>
                     </View>
                 </View>
             </ScrollView>
@@ -71,7 +85,7 @@ export const TagsView = ({tags, onPressAdd}) => {
     )
 }
 
-export const DescriptView = ({longText}) => {
+export const DescriptView = ({longText, onTextChange, isDisableInput = false}) => {
   
     return (
         <View style = {[styles.lineSeparate]}>
@@ -83,14 +97,14 @@ export const DescriptView = ({longText}) => {
                 autoFocus
                 selectTextOnFocus
                 focusable
+                onChangeText = {onTextChange}
+                disabled = {!isDisableInput}
             />
         </View>
     )
 }
 
 export const ListMemberView = ({members, onDeleted}) => {
-    console.log("BUGG");
-    console.log(members);
     return (
         <View style = {[styles.lineSeparate, {marginTop: 10}]}>
             <Text style = {styles.descriptionText}>Thành viên</Text>
@@ -99,22 +113,22 @@ export const ListMemberView = ({members, onDeleted}) => {
     )
 }
 
-export const AdvanceView = ({}) => {
+export const AdvanceView = ({onDeleteGroup, isEditable}) => {
     return (
         <View style = {[styles.lineSeparate, {marginTop: 10}]}>
             <Text style = {styles.descriptionText}>Nâng cao</Text>
             <View style = {styles.advanceContainer}>
                 <View style = {styles.switchView}>
-                    <Text style = {styles.switchText}>Bật ghép nhóm: </Text>
+                    {/* <Text style = {styles.switchText}>Bật ghép nhóm: </Text>
                     <Switch
                         trackColor={{ false: "#767577", true: "#81b0ff" }}
                         thumbColor={true ? "#f5dd4b" : "#f4f3f4"}
                         ios_backgroundColor="#3e3e3e"
-                    />
+                    /> */}
 
                 </View>
 
-                <Button danger full>
+                <Button danger full onPress = {onDeleteGroup} disabled = {!isEditable}>
                     <Text> Delete Group </Text>
                 </Button>
             </View>

@@ -3,7 +3,7 @@ import Carousel from 'react-native-snap-carousel';
 import {defaultScrollInterpolator, shiftAnimatedStyles} from 'react-native-snap-carousel/src/utils/animations'
 
 
-export default function({data, sliderWidth, itemWidth, renderItem, activeIndex}) {
+export default function({data, sliderWidth, itemWidth, renderItem, activeIndex, onChangeItem}) {
     
     return (
         <Carousel 
@@ -16,7 +16,11 @@ export default function({data, sliderWidth, itemWidth, renderItem, activeIndex})
             scrollInterpolator={defaultScrollInterpolator}
             slideInterpolatedStyle={shiftAnimatedStyles}
             useScrollView={true}  
-            firstItem = {activeIndex}          
+            firstItem = {activeIndex}   
+            onSnapToItem = {(index) => {
+                console.log(index)
+                onChangeItem(data[index])
+            }}       
         />
     )
 }

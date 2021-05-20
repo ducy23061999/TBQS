@@ -152,19 +152,21 @@ export default StyleSheet.create({
     nameText: {
         color: '#00F',
         fontFamily: fonts.PoppinsMedium,
-        fontSize: 16
+        fontSize: 16,
+        marginRight: 10,
     },
 
     inviteContainText: {
         color: '#000',
         fontSize: 16,
-        width:'90%'
+        // width:'90%',
     },
     rightChatContain: {
        display: 'flex',
        flexDirection: 'row',
        justifyContent: 'flex-end',
-       marginRight: '10%'
+       marginRight: '10%',
+       marginTop: 10
     },
     chatActionText: {
         fontSize: 18,

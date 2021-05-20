@@ -17,6 +17,7 @@ import WrapTextInput from './WrapTextInput'
 import WrapOptionPicker from './WrapOptionPicker'
 import {AddFavoriteModal} from './Modals';
 import AutoCompleteInput from './InputAutocomplete'
+import EmptyManage from './EmptyManage'
 
 export {
     Tabs,
@@ -43,5 +44,6 @@ export {
     WrapTextInput,
     WrapOptionPicker,
     AddFavoriteModal,
-    AutoCompleteInput
+    AutoCompleteInput,
+    EmptyManage
 }
